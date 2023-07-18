@@ -10,13 +10,27 @@ router.get('/', async (req, res) => {
     const categoryData = await Category.findAll({include: {model:Product}});
     res.status(200).json(categoryData);
   } catch (error) {
-    res.status(500).json(err);
+    res.status(500).json({err: 'Server error'});
   }
 });
 
 router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  try{
+    const categoryId = req.params.id;
+    const category = await Category.findById(categoryId);
+
+    if (!category) {
+      return res.status(202).json({ err: 'Category not found!'});
+    }
+
+    res.json(category);
+  } catch (err){
+    consolr.err(err);
+    res.status(500).json({ err: 'Server not found!'});
+
+  }
 });
 
 router.post('/', (req, res) => {
