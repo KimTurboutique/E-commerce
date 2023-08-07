@@ -3,26 +3,82 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
+  try {
+    const categoryData = await Tag.findAll({include: {model:Product}});
+    res.status(200).json(tagData);
+  } catch (error) {
+    res.status(500).json({err: 'Server error'});
+  }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
+  try{
+    const tagId = req.params.id;
+    const tag = await Tag.findById(TagId);
+
+    if (!tag) {
+      return res.status(202).json({ err: 'Tag not found!'});
+    }
+
+    res.json(tag);
+  } catch (err){
+    consolr.err(err);
+    res.status(500).json({ err: 'Server not found!'});
+
+  }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new tag
+  try {
+    const tagData = await Tag.create(req.body);
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
+  const tagId = req.params.id;
+  const { tagName } = req.body;
+
+  try {
+    const updatedTag = await Tag.update(
+      { tagName },
+      {
+        where: { id: tagId }
+      }
+    );
+    if (updatedTag[0] === 0) {
+      return res.status(404).json({ err: 'Tag not found' });
+    }
+    res.json({ message: 'Tag updated succesfully' });
+  }catch (err) {
+    console.error('Error updating Tag:', error);
+    res.status(500).json({ error: 'Failed to update category' });
+  }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
+  try {
+    const tagData = await Tag.destroy({
+      where: { id: req.params.id }
+    });
+    if (!tagData) {
+      res.status(404).json({ message: 'No tag with this id!' });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
