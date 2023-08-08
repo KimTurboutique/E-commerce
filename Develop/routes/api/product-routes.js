@@ -21,7 +21,12 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try{
     const productId = req.params.id;
-    const product = await Product.findById(productId);
+    const product = await Product.findOne({
+      where: { 
+        id: productId
+      },
+      include: [Category, Tag]
+    });
 
     if (!product) {
       return res.status(202).json({ err: 'Product not found!'});
@@ -29,7 +34,7 @@ router.get('/:id', async (req, res) => {
 
     res.json(product);
   } catch (err){
-    consolr.err(err);
+    console.error(err);
     res.status(500).json({ err: 'Server not found!'});
 
   }
