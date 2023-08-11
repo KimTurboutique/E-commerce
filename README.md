@@ -17,7 +17,7 @@
 
 This video demonstration will highlight the usage of this E-Commerce Database:
 
-- [Demonstration Video](#https://drive.google.com/file/d/1zhq5AaMmzZy9MEEZMrFVBFxFFssxewua/view)
+* [Demonstration Video](https://drive.google.com/file/d/1zhq5AaMmzZy9MEEZMrFVBFxFFssxewua/view)
 
 ### Tools & Technologies used for this Database:
 
