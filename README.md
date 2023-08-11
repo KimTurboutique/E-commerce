@@ -2,13 +2,7 @@
 
 ## User Story
 
-``` ```
-
-``` ```
-
-``` ```
-
-``` ```
+``` As a manager at an internet retail company the user requested a back-end for an e-commerce website that uses the latest technolgies so that the company can compete with other e-commerce companies.```
 
 
 ## Table of Contents
@@ -23,12 +17,14 @@
 
 This video demonstration will highlight the usage of this E-Commerce Database:
 
+- [Demonstration Video](#https://drive.google.com/file/d/1zhq5AaMmzZy9MEEZMrFVBFxFFssxewua/view)
 
-### References and Tools are as follows:
+### Tools & Technologies used for this Database:
 
-- Insomnia
+- Sequelize
 - MySQL
-- 
+- Insomnia
+
 
 ## Test
 ```npm start``` or ```npm run dev``` (to use nodemon)
